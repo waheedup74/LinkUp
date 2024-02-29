@@ -1,0 +1,54 @@
+<button [type]="type" (click)="showDialog()">Show</button>
+
+<form [formGroup]="signupFormGroup" (ngSubmit)="onSubmit()">
+    <input type="text" id="username" name="username" formControlName="username">
+    <p *ngIf="signupFormGroup.get('username')?.touched && !signupFormGroup.get('username')?.valid">
+        Please enter your username
+    </p>
+    <p *ngIf="signupFormGroup.get('username')?.errors?.['nameNotAllowed']">
+        Name not allowed
+    </p>
+    <br>
+    <input type="password" id="password" name="password" formControlName="password">
+    <p *ngIf="signupFormGroup.get('password')?.touched && !signupFormGroup.get('password')?.valid">
+        Please enter your password
+    </p>
+    <br>
+    <button type="submit">Submit</button>
+
+    <br>
+
+    <div formGroupName="additionalUserdata">
+        <label>Bio</label>
+        <input type="text" id="bio" name="bio" formControlName="bio">
+
+        <br>
+
+        <button type="button" (click)="addAdditionalBio()">Additional Bio</button>
+
+        <div *ngFor="let experience of myAdditionalBioControls(); let b = index">
+            <input type="text" [placeholder]="'experience'+b" [formControlName]="b">
+        </div>
+    </div>
+
+    <br>
+
+    <div formArrayName="myexperience">
+        <button type="button" (click)="addExperince()">Add Experience</button>
+
+        <div *ngFor="let experience of myexperienceControls(); let e = index">
+            <input type="text" [placeholder]="'experience'+e" [formControlName]="e">
+        </div>
+    </div>
+
+
+    <div formArrayName="myphotoes">
+        <button type="button" (click)="addPhotoes()">Add Photo</button>
+
+        <div *ngFor="let photoes of myphotoesControls(); let p = index">
+            <input type="text" [placeholder]="'photo'+p" [formControlName]="'photoname'+p">
+            <input type="file" [formControlName]="'photoFile'+p">
+        </div>
+    </div>
+
+</form>

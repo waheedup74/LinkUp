@@ -1,0 +1,96 @@
+@media screen and (min-width: 620px){
+    .showDropButton{
+       display: none;   
+    }
+}
+
+.sticky-header {
+    width: 100%;
+    z-index: 1;
+    position: fixed !important;
+}
+
+.textColor{
+    color:rgb(37, 36, 36);
+}
+
+.dropDownMenuOveride{
+    transform: translate3d(-126px, 48px, 0px) !important;  
+}
+
+.dropDownUserOveride{
+    min-width: 20rem !important;
+    height: auto;
+    transform: translate3d(-195px, 40px, 0px) !important
+}
+
+.settingsOveride{
+    margin-top: 14px;
+}
+
+.dropDownOveride{
+    border-radius: 50%;
+}
+
+.removeDropdownArrow::after{
+    content: none !important;
+}
+
+.dropdownItemOveride{
+    margin-top: 0em;
+}
+
+
+@media screen and (max-width: 768px){
+    .HideMe{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 650px){
+    .alignCenter{
+        text-align: center;
+    }
+}
+
+@media screen and (min-width: 768px){
+    .displayMe{
+        display: none;
+    }
+}
+
+input::placeholder {
+    font-size: 14px;
+    padding-left: 10px;
+}
+
+/* *************************************************************************************** */
+
+/*--- topbar ---*/
+
+.topbar {
+    background: #fff;
+    display: block;
+    height: 60px;
+    padding: 0 30px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    z-index: 99;
+    position: relative;
+}
+
+.logo {
+    display: inline-block;
+    vertical-align: inherit;
+    width: 15%;
+    position: relative;
+    z-index: 10;
+}
+
+
+.top-area {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    width: 84%;
+}
+

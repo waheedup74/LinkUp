@@ -1,0 +1,118 @@
+<div id="parentDiv" class="container mainDiv">
+    <div class="col-sm-10 col-md-10 col-lg-10">
+        <div class="card ">
+            <div class="card-header">
+                Personal Info
+            </div>
+            <div class="card-block">
+                <h5 class="emptyFormTxt" *ngIf="getQuestionairControls.length == 0"> Start adding
+                    questions there ...</h5>
+
+                <form [formGroup]="createForm" (ngSubmit)="submitQuestionair()">
+                    <div formArrayName="mainFormPanel">
+                        <div class="card bg-light parentFormDiv" [@newForm] (@newForm.start)="animStarted($event)"
+                            (@newForm.done)="animDone($event)"
+                            *ngFor="let form of getQuestionairControls; let f= index">
+                            <div class="card-body text-center mainFormCard" [formGroupName]="f">
+                                <div class="form-group">
+                                    <img class="addForm" (click)="RemoveThisForm(f)"
+                                        src="../../../assets/icons/minus.png">
+
+                                    <select formControlName="questionType" #selectedOption class="addOptionBtn"
+                                        (click)="manualChangeDetect()">
+                                        <option *ngFor="let option of optionsTypes; let o= index" [value]="option.id">
+                                            {{option.name}}
+                                        </option>
+                                    </select>
+
+                                    <label class="questionTxt" for="question">Question {{f+1}}</label>
+                                    <textarea id="question" class="form-control questionField"
+                                        formControlName="question" rows=3></textarea>
+
+                                    <div>
+                                        <img class="addForm" (click)="addMoreOption(f)"
+                                            src="../../../assets/icons/addIcon.png">
+                                    </div>
+
+                                    <div formArrayName="questionOptions">
+                                        <div [@addOptions] *ngFor="let form of getQuestionOptionsControls ; let q= index">
+                                            <div [ngSwitch]="selectedOption.value">
+                                                <div *ngSwitchCase="1" style="float: left;">
+                                                    <label class="questionNo" [for]="q">{{q+1}}</label>
+                                                    <input [id]="q" class="questionInputType" [formControlName]="q"
+                                                        type="text">
+                                                    <img class="removeOptionIcon" (click)="removeOption(f, q)"
+                                                        src="../../../assets/icons/minus.png">
+                                                </div>
+                                                <div *ngSwitchCase="2" style="float: left;">
+                                                    <label class="questionNo" [for]="q">{{q+1}}</label>
+                                                    <input [id]="q" [formControlName]="'option-' + q" type="radio"
+                                                        class="questionInputType">
+                                                    <input type="text" [formControlName]="q" class="questionTxtField"
+                                                        placeholder="enter text here">
+                                                    <img class="removeOptionIcon" (click)="removeOption(f, q)"
+                                                        src="../../../assets/icons/minus.png">
+                                                </div>
+                                                <div *ngSwitchCase="3" style="float: left;">
+                                                    <label class="questionNo" [for]="q">{{q+1}}</label>
+                                                    <input [id]="q" [formControlName]="q" type="checkbox"
+                                                        class="questionInputType">
+                                                    <input type="text" [formControlName]="q" class="questionTxtField"
+                                                        placeholder="enter text here">
+                                                    <img class="removeOptionIcon" (click)="removeOption(f, q)"
+                                                        src="../../../assets/icons/minus.png">
+                                                </div>
+                                                <div *ngSwitchCase="4">
+                                                    <label class="questionNo" [for]="q">{{q+1}}</label>
+                                                    <textarea [id]="q" [formControlName]="q" rows=2
+                                                        style="width: 70%; margin-top: 9px"></textarea>
+                                                    <img class="removeOptionIcon" (click)="removeOption(f, q)"
+                                                        src="../../../assets/icons/minus.png">
+                                                </div>
+                                                <div *ngSwitchCase="5">
+                                                    <label class="questionNo" [for]="q">{{q+1}}</label>
+                                                    <input [id]="q" [formControlName]="q" type="time"
+                                                        style="width: 30%; margin-top: 9px;">
+                                                    <img class="removeOptionIcon" (click)="removeOption(f, q)"
+                                                        src="../../../assets/icons/minus.png">
+                                                </div>
+                                                <div *ngSwitchCase="6">
+                                                    <label class="questionNo" [for]="q">{{q+1}}</label>
+                                                    <input [id]="q" [formControlName]="q" type="date"
+                                                        style="width: 40%; margin-top: 9px;">
+                                                    <img class="removeOptionIcon" (click)="removeOption(f, q)"
+                                                        src="../../../assets/icons/minus.png">
+                                                </div>
+                                                <div *ngSwitchCase="7">
+                                                    <img src="../../../assets/pics">
+                                                </div>
+                                                <div *ngSwitchDefault> add options here ... </div>
+                                                <div style=" clear: both;"> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-2 col-lg-2 hideMeRightPanel" style="position: fixed; right: 12%; top: 50%">
+        <aside class="sidebar overrideSidebar static right">
+            <div class="widget">
+                <div>
+                    <img class="addForm" (click)="AddNewForm()" src="../../../assets/icons/addIcon.png">
+                </div>
+                <div style="padding-top: 9px;">
+                    <img class="addForm" (click)="submitQuestionair()" src="../../../assets/icons/submit.png">
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+
+<div id="bottomDiv"></div>

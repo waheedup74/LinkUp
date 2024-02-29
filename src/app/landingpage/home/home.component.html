@@ -1,0 +1,24 @@
+
+  <div class="theme-layout">
+    <section>
+      <div class="gap2 gray-bg">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="row merged20" id="page-contents" style="margin-top: 50px;">
+              
+                <app-left-panel class="col-sm-4 col-lg-4" [activeLeftPanel]="rightPanelNo"  style="position: fixed; left: -3%; margin-top: 4%;"></app-left-panel>
+                
+                   <app-all-posts class="col-sm-6 col-lg-6" [showPostStatus] = "showPostStatus" style="margin: 4% auto auto auto;"></app-all-posts>
+
+                <div class="col-sm-4 col-lg-4 hideMeRightPanel" style="position: fixed; right: -3%; margin-top: 4%;">
+                  <app-right-panel></app-right-panel>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>

@@ -1,0 +1,62 @@
+<div class="theme-layout">
+    <section>
+        <div class="gap gray-bg">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row" id="page-contents">
+
+                            <app-left-panel class="col-sm-3 col-lg-3" [activeLeftPanel]="rightPanelNo"></app-left-panel>
+
+                            <div class="col-md-5 col-lg-5 expandMiddleContent setMiddleContentToRight setMidleContentMaxWidth setMidleContentMinWidth"
+                                style="padding-top: 7%;">
+                                <div class="central-meta">
+                                    <div class="groups">
+                                        <span><i class="fa fa-users"></i> Groups {{group.no}}</span>
+                                        <input type="text" [(ngModel)]="searchText" value="">
+                                        <br>
+                                        <a [routerLink]="['/landingpage/groups/' + 2]">Do Nothing</a>
+                                    </div>
+                                    <br>
+
+                                    <p> {{groupStatus | async}} </p>
+                                    <div>
+                                        <ul class="nearby-contct" style="list-style-type:none;"
+                                            *ngFor="let group of groupsData | filter:searchText ; let g = index">
+                                            <li>
+                                                <div class="card" style="width: 18rem;">
+                                                    <img class="card-img-top"
+                                                        src="/assets/winkuLandingPage/images/FrontendWebAreas.png"
+                                                        alt="Card image cap">
+                                                    <div class="card-body">
+                                                        <p class="card-text">{{group.groupName | uppercase}}</p>
+                                                        <p>{{group.createdAt | date: 'fullDate'}}</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="downMiddle">
+                                        <br>
+                                        <a class="pointer" *ngFor="let page of pageNo; let i = index"
+                                            (click)="setPageNo(page.no)">
+                                            {{page.no}}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-4 col-lg-4 hideMeRightPanel"
+                                style="position: fixed; right: -5%; margin-top: 4%;">
+                                <app-right-panel></app-right-panel>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

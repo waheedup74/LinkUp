@@ -1,0 +1,151 @@
+.activeLink{
+	background-color: #333;
+}
+
+
+/*===============
+*** MEDIA QUERIES ***
+===============*/
+
+@media screen and (max-width: 850px){
+    .setMargins{
+         margin-top:3%;
+    }
+}
+
+@media screen and (max-width: 700px){
+    .hideMeRightPanel{
+       display: none;
+    }
+}
+
+@media screen and (max-width: 700px){
+.middleContentsCustomSet{
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+}
+}
+
+.middleContentsNormal{
+    flex: 0 0 70% ;
+    max-width: 70% ;
+}
+
+.sidebarContentsCustomSet{
+    flex: 0 0 35% !important;
+    max-width: 30% !important;
+}
+
+.likedORdisliked{
+    color: green;
+}
+
+.createImageCircle{
+    border-radius: 50%;
+}
+
+
+
+/* ********************************************************************************************* */
+
+.navbar{
+	border-radius:0;
+	margin-bottom:0;
+	border:none;
+        font-family: 'Open Sans Condensed', sans-serif, sans-serif;
+	}
+	
+.navbar-brand{
+width:39%;
+height:auto;
+float:left;
+padding:0;
+margin-top:-130px;
+overflow:hidden;
+border:3px solid #eee;
+margin-left:15px;
+background:#333;
+text-align:center;
+color:#fff !important;
+font-size:2em;
+    -webkit-transition:  all 0.3s ease-in-out;
+  	-moz-transition: all 0.3s ease-in-out;
+  	-o-transition:  all 0.3s ease-in-out;
+  	transition: all 0.3s ease-in-out ;
+
+	}
+	
+	
+.site-name{
+	color:#fff;
+	font-size:2.4em;
+	float:left;
+	margin-top:-65px !important;
+	margin-left:15px;
+    font-family: 'Open Sans Condensed', sans-serif, sans-serif;
+	}	
+
+
+@media screen and (max-width: 950px) and (min-width: 490px){
+.setProfilePicSize{
+    max-width: 29%;
+	float:left;
+	margin-top:-65px;
+	margin-left:15px;
+	-webkit-transition:  all 0.3s ease-in-out;
+  	-moz-transition: all 0.3s ease-in-out;
+  	-o-transition:  all 0.3s ease-in-out;
+  	transition: all 0.3s ease-in-out ;
+}
+
+.setUserNameFontSize{
+    font-size:1.7em;
+    margin-top:-20px !important;
+	margin-left:0;
+}
+}
+	
+	
+@media (max-width: 800px) {
+.navbar-brand{
+    max-width: 100px;
+	max-height:100px;
+	float:left;
+	margin-top:-65px;
+	margin-left:15px;
+	-webkit-transition:  all 0.3s ease-in-out;
+  	-moz-transition: all 0.3s ease-in-out;
+  	-o-transition:  all 0.3s ease-in-out;
+  	transition: all 0.3s ease-in-out ;
+  }
+  
+.navbar{
+	border-radius:0;
+	margin-bottom:0;
+	border:none;
+	}
+	
+.main-menu{
+	left:0;
+	position:relative;
+}
+
+}
+
+@media (max-width: 490px) {
+	.site-name{
+	color:#fff;
+	font-size:1.5em;
+	float:left;
+	margin-top:-30px !important;
+	margin-left:0;
+	}	
+    }
+
+    .friendsCardBox{
+        background-color: #c7c3c3 !important;
+    }
+    
+
+
+

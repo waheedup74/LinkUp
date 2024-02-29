@@ -1,0 +1,159 @@
+<div class="theme-layout">
+	<div class="wrapper">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+				<header id="header">
+
+					<figure class="profileTimelinePic" style="margin: 5% 4% -3rem">
+						<img class="img-responsive setMargins" src="/assets/pics/a12.png" alt="">
+					</figure>
+
+					<nav class="navbar navbar-default" style="margin-top: -3%">
+						<div class="navbar-header">
+
+							<div class="navbar-brand user-avatar setProfilePicSize">
+
+								<span class="comet-avatar">
+									<img [src]="myProfilePic" alt="">
+								</span>
+
+								<form class="edit-phto">
+									<i class="fa fa-camera-retro"></i>
+									<label class="fileContainer">
+										Edit Display Photo
+										<input id="profileUpload" name="profileUpload" type="file"
+											(change)="onProfilePicUpload($event)" #uploadedProfileImage>
+									</label>
+								</form>
+
+							</div>
+
+							<span class="site-name admin-name setUserNameFontSize">
+								<span *ngFor="let names of usernames">
+									<a href="" title="" *ngIf="this.session.get('authUserId')==names.user_id">
+										{{ names.username }}
+									</a>
+								</span>
+							</span>
+						</div>
+					</nav>
+				</header>
+
+				<nav class="navbar navbar-expand-sm bg-light navbar-light">
+					<div class="container">
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menuBar"
+							aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+
+						<div class="collapse navbar-collapse" id="menuBar">
+							<ul class="nav navbar-nav">
+								<li>
+									&nbsp; <a class="borderRight" style="cursor: pointer"
+										(click)="activateSelectedTab('timeline')">
+										<i class="fa fa-home"></i>
+										Timeline
+										&nbsp; </a>
+								</li>
+								<li>
+									&nbsp; <a class="borderRight" style="cursor: pointer"
+										(click)="activateSelectedTab('groups')">
+										<i class="fa fa-object-group"></i>
+										Groups &nbsp; </a>
+								</li>
+								<li>
+									&nbsp; <a class="borderRight" style="cursor: pointer"
+										(click)="activateSelectedTab('likes')">
+										<i class="fa fa-thumbs-up"></i>
+										Likes &nbsp; </a>
+								</li>
+								<li>
+									&nbsp; <a class="borderRight" style="cursor: pointer"
+										(click)="activateSelectedTab('friends')">
+										<i class="fa fa-users"></i> Friends
+										&nbsp; </a>
+								</li>
+							</ul>
+						</div>
+
+					</div>
+				</nav>
+			</div>
+		</div>
+	</div>
+	<!-- ******************************************* TOP AREA ENDED **************************************************************** -->
+</div>
+
+<div class="theme-layout">
+	<section>
+		<div class="gap2 gray-bg">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<app-left-panel class="col-sm-4 col-lg-4" [activeLeftPanel]="rightPanelNo" style="position: absolute; left: 0%; top: 42px;"></app-left-panel>
+
+
+						<div *ngIf="activatedTab == 'timeline'">
+							<div class="row merged20" id="page-contents" style="margin-top: 50px;">
+								<app-all-posts class="col-sm-8 col-lg-8" style="margin-left: 31%; margin-top: -3%;" [showPostStatus]="showPostStatus">
+								</app-all-posts>
+							</div>
+						</div>
+
+						<!-- FRIENDS -->
+							
+						<div *ngIf="activatedTab == 'friends'"
+						class="col-sm-6 col-md-6 col-lg-6 middleContentsNormal middleContentsCustomSet">
+			
+						<div class="central-meta">
+							<div class="row">
+						
+								<span *ngFor="let friend of myFriends; let f= index">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+										style="width: 12rem;">
+										<div class="card h-100 friendsCardBox">
+											<h5 class="card-title" style="text-align:center">
+												{{ friend.username }} </h5>
+
+											<span style="text-align:center"
+												*ngIf="friend.picFile != null ; else showDummyPic">
+												<img class="card-img-top"
+													style="border-radius: 50%; width: 50%; height: 50%"
+													[src]="friend.picFile" alt="" class="createImageCircle">
+											</span>
+
+											<ng-template #showDummyPic>
+												<span style="text-align:center">
+
+													<img class="card-img-top"
+														style="border-radius: 50%; width: 50%"
+														src="/assets/pics/noProfile.png" alt=""
+														class="createImageCircle">
+												</span>
+											</ng-template>
+
+											<div class="card-footer" style="text-align: center">
+												<button class="btn btn-danger"
+													(click)="unfriend(friend.sender_id, friend.receiver_id)"
+													type="button">
+													Unfriend </button>
+											</div>
+										</div>
+									</div>
+
+
+								</span>
+
+							</div>
+
+						</div>
+					</div>
+
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

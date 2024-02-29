@@ -1,0 +1,94 @@
+.slider {
+    width: 100%;
+}
+
+.mainDiv{
+    padding-top: 8%;
+}
+
+.addForm{
+    cursor: pointer;
+    width: 22px;
+    height: 22px;
+    float: right;
+}
+
+.emptyFormTxt{
+    text-align: center;
+    padding: 20px;
+}
+
+.questionField{
+    max-height: 80px;
+    width: 90%;
+}
+
+.addFormBtn{
+    float: right;
+    margin: 25px;
+}
+
+.createFormBtn{
+    float: right;
+    margin: 12px;
+}
+
+.mainFormCard{
+    background-color: #f8f9fa!important;
+    /* border-bottom: 0.5px solid #907e7e; */
+}
+
+.parentFormDiv{
+    margin: 12px;
+    background-color: transparent !important;
+}
+
+.overrideSidebar{
+    width: 52% !important;
+}
+
+.sidebar .widget li {
+    width: 51% !important;
+    list-style: none;
+}
+
+.sidebar .widget {
+    width: 56% !important;
+    display: grid !important;
+    padding: 7px;
+}
+
+.addOptionBtn{
+    float: right;
+    margin-right: 11px;
+}
+
+.removeOptionIcon{
+    width: 23px;
+    /* float: left; */
+    margin-left: 15px;
+    /* margin-top: 12px; */
+}
+
+.questionTxt{
+    float: left;
+}
+
+.questionInputType{
+    margin-left: 10px;
+    margin-top: 9px;
+}
+
+.questionNo{
+    font-weight: 700;
+}
+
+.questionFwdLabel{
+    margin-left: 8px;
+}
+
+.questionTxtField{
+    background-color: transparent !important;
+    border: 0px !important;
+    border-bottom: 1px solid #544c4c !important;
+}

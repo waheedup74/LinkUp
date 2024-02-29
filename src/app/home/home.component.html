@@ -1,0 +1,5 @@
+<p>home works!</p>
+<h5 style="cursor: pointer;" routerLink="/projection">Go to UPLOAD</h5>
+<button class="btn" (click)="upload()">{{submitBtn}}</button>
+
+<p class="msg" *ngIf="submitBtn === 'Submitted'">{{message}}</p>

@@ -1,0 +1,257 @@
+<!-- ******************* CREATE POST ********************************* -->
+<div
+  class="col-sm-12 col-lg-12 expandMiddleContent setMiddleContentToRight setMidleContentMaxWidth setMidleContentMinWidth">
+  <div class="central-meta">
+    <div class="new-postbox">
+
+      <span class="comet-avatar">
+        <img *ngIf="myProfilePic != ''" [src]="myProfilePic" alt="" style=" width: 11%" class="createImageCircle">
+
+        <img *ngIf="myProfilePic == ''" src="assets/pics/noProfile.png" alt="" style=" width: 11%"
+          class="createImageCircle">
+      </span>
+
+      <div class="newpst-input">
+        <form [formGroup]="postingFormGroup">
+          <textarea class="postTextarea" rows="2" placeholder="write something" formControlName="desc" name="desc"
+            #desc></textarea>
+
+          <img class="img-responsive" [src]="imageSrc">
+
+          <div class="attachments">
+            <ul>
+              <li><img class="questionairIcon" routerLink="/landingpage/create-questionair" src="../../../assets/icons/questionair.png"></li>
+              <li>
+                <input id="upload" name="upload" type="file" class="btn btn-secondary" style="display: none;"
+                  (change)="onImageUpload($event)" #uploadedImage>
+                <label for="upload" style="vertical-align: top; background: lightgray; padding: 1px 11px;"
+                  class="btn btn-default">Upload</label>
+              </li>
+              <li *ngIf="!isImageUploaded">
+                <button class="btn btn-primary" name="submit" type="button" [disabled]="!postingFormGroup.valid"
+                  (click)="addMyPost(desc.value)">Post</button>
+              </li>
+              <li *ngIf="isImageUploaded">
+                <button class="btn btn-primary" name="submit" type="button"
+                  (click)="addMyPost(desc.value)">Post</button>
+              </li>
+            </ul>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div><!-- add post new box -->
+
+  <!-- **************** POSTS ******************************** -->
+  <div class="loadMore">
+ 
+    <span *ngFor="let posts of createpost; let i = index">
+      
+      <span *ngIf="(showPostStatus == 0)||(showPostStatus == 1 && posts.user_id == userId)" 
+      class="friend-info" style="background-color: white; padding: 13px;">
+
+        <figure>
+          <span *ngIf="posts.postUserpic != ''">
+            <img [src]="posts.postUserpic" alt="" class="createImageCircle">
+          </span>
+          <span *ngIf="posts.postUserpic == ''">
+            <img src="/assets/pics/noProfile.png" alt="" class="createImageCircle">
+          </span>
+        </figure>
+
+        <div class="friend-name">
+          <ins>
+            <a href="time-line.html" title="">
+              {{ posts.username }}
+            </a>
+
+          </ins>
+          <span>published: june,2 2018 19:PM</span>
+        </div>
+        <div class="post-meta">
+          <div class="description">
+            <p class="">
+              {{posts.description}}
+            </p>
+          </div>
+
+          <img class="resize" *ngIf="posts.image != null || posts.image != ''" [src]="posts?.image" alt="">
+
+          <input type="hidden" [value]="posts.post_id" #postIdField>
+          <div class="we-video-info">
+
+            <ul>
+              <li>
+                <span title="comments">
+                  <i class="fa fa-comments"></i>
+                  <ins>{{posts.totalComments + posts.totalReplies}}</ins>
+                </span>
+              </li>
+
+              <!-- ************************************************************************************************* -->
+
+              <span title="like">
+                <i class="fa fa-thumbs-up" style="cursor: pointer" (click)="onPostLike(posts.liked)"
+                  [ngStyle]="{color: posts?.liked==1 ? 'green' : ''}"></i>
+
+              </span>
+
+              <li>
+                <span title="like">
+                  <ins>{{posts.totalLikes}}</ins>
+                </span>
+              </li>
+
+              <!-- -------------------------------------------------------------------------------------------- -->
+
+              <span title="dislike">
+                <i class="fa fa-thumbs-down" style="cursor: pointer"
+                  (click)="onPostdisLike(posts.disliked)"
+                  [ngStyle]="{color: posts?.disliked==1 ? 'green' : ''}"></i>
+              </span>
+
+              <li>
+                <span title="dislike">
+                  <ins>{{posts.totalDislikes}}</ins>
+                </span>
+              </li>
+
+              <!-- ------------------------------------------------------------------------------------------- -->
+
+            </ul>
+            <br>
+
+            <div class="post-comment">
+
+              <div class="post-comt-box">
+                <!-- ****************** ENTER COMMENT ***************************************** -->
+                <span>
+                  <span class="comet-avatar">
+                    <img *ngIf="myProfilePic != ''" [src]="myProfilePic" alt="" style=" width: 15%; float: left"
+                      class="createImageCircle">
+                    <img *ngIf="myProfilePic == ''" src="assets/pics/noProfile.png" alt=""
+                      style=" width: 15%; float: left" class="createImageCircle">
+                  </span>
+
+                  <textarea class="commentTextarea" [(ngModel)]="commentValue"
+                    (keydown.enter)="MainComment($event, posts.post_id, mainComment);false"
+                    placeholder="Post your comment" #mainComment></textarea>
+                </span>
+                <!-- **************************************************************************** -->
+
+                <!-- ****************** SHOW COMMENTS ***************************************** -->
+                <span class="" *ngFor="let comment of createcomments">
+                  <ul class="we-comet" *ngIf="comment.post_id == posts.post_id">
+                    <li>
+                      <div class="we-comment">
+                        <div class="coment-head">
+                          <!-- /assets/pics/noProfile.png -->
+
+                          <span class="comet-avatar">
+                            <img [src]="comment.profilePic" alt="" style=" width: 15px" class="createImageCircle">
+                          </span>
+
+                          <h5>
+                            <a>
+                              {{ comment.username }}
+                            </a>
+                          </h5>
+
+                          <!-- <span>1 year ago</span> -->
+                          <a class="we-reply" style="cursor:pointer" (click)="showCommentReply(comment.comment_id)"
+                            title="Reply"><i class="fa fa-reply"></i></a>
+                        </div>
+                        <p> {{ comment.comment_description }} </p>
+                      </div>
+                    </li>
+
+                    <!-- ****************** ENTER REPLY ***************************************** -->
+                    <li
+                      *ngIf="commentReplyStatus && comment.post_id == posts.post_id && comment.comment_id == currentReplyId">
+                      <div style="margin-top: 9px">
+                        <span>
+                          <span class="comet-avatar">
+                            <img *ngIf="myProfilePic != ''" [src]="myProfilePic" alt="" style=" width: 15%; float: left"
+                              class="createImageCircle">
+                            <img *ngIf="myProfilePic == ''" src="assets/pics/noProfile.png" alt=""
+                              style=" width: 15%; float: left" class="createImageCircle">
+                          </span>
+
+                          <textarea class="replyComment" style="vertical-align: middle" [(ngModel)]="replyValue"
+                            (keydown.enter)="ReplyComment($event, posts.post_id, comment.comment_id, commentReply);false"
+                            placeholder="Post your comment" #commentReply></textarea>
+                        </span>
+                      </div>
+                    </li>
+
+                    <!-----------------  SHOW REPLIES ---------------------------------------------------->
+                    <li>
+                      <span class="" *ngFor="let reply of createreplies">
+                        <ul class="we-comet"
+                          *ngIf="reply.post_id == posts.post_id && reply.comment_id == comment.comment_id">
+                          <li>
+                            <div class="we-reply-comment">
+                              <div class="coment-head">
+
+                                <span class="comet-avatar">
+                                  <img [src]="reply.profilePic" alt="" style=" width: 35px" class="createImageCircle">
+                                </span>
+
+                                <h5>
+                                  <a href="" title="">
+                                    {{ reply.username }}
+                                  </a>
+                                </h5>
+                                <!-- <span>1 year ago</span> -->
+
+                                <a class="we-reply" style="cursor:pointer"
+                                  (click)="showReplyComment(reply.user_id, reply.reply_id)" title="Reply"><i
+                                    class="fa fa-reply"></i></a>
+                              </div>
+                              <p> {{ reply.reply_description }}
+                              </p>
+                            </div>
+                          </li>
+
+                          <li
+                            *ngIf="replyCommentStatus && reply.post_id == posts.post_id && reply.comment_id == comment.comment_id && reply.reply_id == currentReplyId">
+                            <div style="margin-top: 9px">
+                              <span>
+                                <span class="">
+                                  <img *ngIf="myProfilePic != ''" [src]="myProfilePic" alt=""
+                                    style=" width: 15%; float: left" class="createImageCircle">
+                                  <img *ngIf="myProfilePic == ''" src="assets/pics/noProfile.png" alt=""
+                                    style=" width: 15%; float: left" class="createImageCircle">
+                                </span>
+
+                                <textarea class="replyComment" style="vertical-align: middle" [(ngModel)]="replyValue"
+                                  (keydown.enter)="ReplyComment($event, posts.post_id, reply.comment_id, inlineCommentReply);false"
+                                  placeholder="Post your comment" #inlineCommentReply></textarea>
+                              </span>
+
+                            </div>
+                          </li>
+                        </ul>
+                      </span>
+                    </li>
+
+                  </ul>
+
+                </span> <!-- coment-area ends here -->
+                <!-- </div>  -->
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </span> <!-- friendInfo class ends -->
+      <br><br>
+      <span *ngIf="i == createpost.length-1 && createpost.length != 0 && showLoadMoreButton">
+        <button class="btn btn-primary" (click)="LoadMorePost(createpost[(createpost.length-1)].post_id)">
+          LoadMore </button>
+      </span>
+    </span> <!-- ngFor_CreatePost ends -->
+  </div>
+</div><!-- centerl meta -->

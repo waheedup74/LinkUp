@@ -1,0 +1,88 @@
+<div class="theme-layout">
+  <section>
+    <div class="gap2 gray-bg">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="row merged20" id="page-contents" style="margin-top: 50px">
+              <div
+                class="col-sm-12 col-lg-12 expandMiddleContent setMiddleContentToRight setMidleContentMaxWidth setMidleContentMinWidth"
+                style="margin: 0 auto">
+                <div class="central-meta">
+                  <div class="new-postbox">
+                    <div>
+                      <div class="widget">
+                        <div class="widget-title">Create Page</div>
+                        <div class="widget-page">
+                          <form [formGroup]="createpageForm" (ngSubmit)="onSubmit()">
+                            <div class="form-group">
+                              <label for="">Page name *</label>
+                              <input type="text" (input)="validateName(pname)" class="form-control"
+                                formControlName="pagename"
+                                [ngClass]="{inputFieldonError: pageNameInputFieldError==true}" #pname>
+                              <div *ngIf="pageNameValidationStatus">
+                                <p class="row" style="float: right; color: red">{{ pageNameErrorMessage }}</p>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="basic-url">Page URL *</label>
+                              <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon3">https://example.com/</span>
+                                </div>
+                                <input type="text" (input)="validateURL(purl)" class="form-control" id="basic-url"
+                                  aria-describedby="basic-addon3" formControlName="pageurl"
+                                  [ngClass]="{inputFieldonError: pageUrlInputFieldError==true}" #purl>
+                                <div *ngIf="pageUrlValidationStatus">
+                                  <p class="row" style="float: right; color:red">{{ pageUrlErrorMessage }}</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleFormControlSelect1">Page Category *</label>
+                              <select class="form-control" id="exampleFormControlSelect1" formControlName="pagecat">
+                                <option value="0" disabled>Select Any One</option>
+                                <option>News</option>
+                                <option>Food</option>
+                                <option>Education</option>
+                                <option>Sports</option>
+                                <option>Others</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleFormControlTextarea1">Page Description *</label>
+                              <textarea class="form-control" (input)="validateDescription()"
+                                id="exampleFormControlTextarea1" rows="3" formControlName="pagedesc"
+                                [ngClass]="{inputFieldonError: pageDescInputFieldError==true}" #pagedesc></textarea>
+                              <div *ngIf="pageDescValidationStatus">
+                                <p class="row" style="float: right; color: red">{{ pageDescErrorMessage }}</p>
+                              </div>
+                            </div>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupFileAddon01">Upload Picture</span>
+                              </div>
+                              <div class="custom-file">
+                                <input type="file" (change)="onPagePicture($event)" class="custom-file-input"
+                                  id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" #pagePictureName>
+                                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                              </div>
+                            </div>
+
+                            <button type="submit" [disabled]="!createpageForm.valid"
+                              class="btn btn-success btn-lg float-right"> + Create</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

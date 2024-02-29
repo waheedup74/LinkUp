@@ -1,0 +1,146 @@
+<div class="topbar sticky-header">
+    <div class="logo" style="cursor: pointer;">
+        <a routerLink="/landingpage/home"><img src="/assets/winkuLandingPage/images/logo.png" alt=""></a>
+    </div>
+
+    <div class="top-area" *ngIf="isUserLoggedIn">
+        <div class="dropdown" style="float: right">
+
+            <span data-toggle="dropdown" *ngIf="(myProfilePic) != ''">
+                <img [src]="myProfilePic" class="dropdown-toggle dropDownOveride"
+                    style="margin-top: 6px; width: 50px; height: 50px;">
+            </span>
+            <span data-toggle="dropdown" *ngIf="myProfilePic == '' || myProfilePic == null">
+                <img src="/assets/pics/noProfile.png" class="dropdown-toggle dropDownOveride"
+                    style="margin-top: 6px; width: 50px; height: 50px;">
+            </span>
+
+            <div class="dropdown-menu dropDownMenuOveride">
+                <a class="dropdown-item dropdownItemOveride" style="cursor: pointer"
+                    (click)="setRoute('landingpage/timeline')" [routerLink]="['/landingpage/timeline']"
+                    routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}">MyProfile</a>
+                <hr>
+                <a class="dropdown-item dropdownItemOveride" style="cursor: pointer"
+                    (click)='openCreatePage("shortcuts/create-page")' routerLink="/shortcuts/create-page"
+                    routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}">Create New Page</a>
+                <a class="dropdown-item dropdownItemOveride" style="cursor: pointer">Create New Group</a>
+                <a class="dropdown-item dropdownItemOveride" style="cursor: pointer">Advertising</a>
+                <a class="dropdown-item dropdownItemOveride" style="cursor: pointer">Edit</a>
+                <a class="dropdown-item dropdownItemOveride" style="cursor: pointer">General Setting</a>
+                <hr>
+                <a class="dropdown-item dropdownItemOveride" style="cursor: pointer" (click)="signOut()">Logout</a>
+            </div>
+        </div>
+
+        <ul class="settingsOveride" style="float: right">
+            <li>
+                <a href="#" title="Notification" data-ripple="">
+                    <i class="fa fa-bell" style="color: #b7b2ad;"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" title="comments" data-ripple=""><i class=" fa fa-comment"
+                        style="color: #b7b2ad;"></i><span></span></a>
+            </li>
+            <li>
+                <div class="dropdown">
+                    <a title="users" class="dropdown-toggle dropDownOveride removeDropdownArrow" data-toggle="dropdown">
+                        <i class="fa fa-users" style="color: #b7b2ad;"></i>
+                        <span *ngIf="friendRequestCount > 0" class="badge badge-pill badge-warning">
+                            {{friendRequestCount}}
+                        </span>
+                    </a>
+
+                    <div class="dropdown-menu dropDownUserOveride">
+
+            <li class="nav-item dropdown">
+                <span>
+                    <h6 style="text-align: center"> Friend Requests </h6>
+
+                    <span *ngFor="let request of friendRequests">
+                        <span *ngIf="request.picFile != null; else dummyPicR">
+                            <img class="rounded-circle" style="width: 50px; height: 50px;" [src]="request.picFile">
+                        </span>
+                        <ng-template #dummyPicR>
+                            <img style="width: 20%" src="/assets/pics/noProfile.png">
+                        </ng-template>
+                        <div class="text-left user-itemC"
+                            style="display: inline-block; margin-left: 10px; width: 100px;">
+                            {{request.username}}
+                        </div>
+
+                        <span class="text-right">
+                            <span *ngIf="request.request_status == 1; else reqRejected">
+                                <span> Request Accepted </span>
+                            </span>
+                            <ng-template #reqRejected>
+                                <span *ngIf="request.request_status == 0">
+                                    Request Rejected
+                                </span>
+                            </ng-template>
+
+                            <span *ngIf="request.request_status == 2">
+                                <input type="button" class="btn btn-primary btn-sm"
+                                    (click)="acceptFriendRequest(request.sender_id, request.receiver_id)"
+                                    value="Accept">
+                                <input type="button" class="btn btn-danger btn-sm"
+                                    (click)="rejectFriendRequest(request.sender_id, request.receiver_id)"
+                                    value="Reject">
+                            </span>
+                        </span>
+                    </span>
+
+                    <span *ngIf="friendRequestCount == 0">
+                        <p style="text-align: center">
+                            No Friend Request Found
+                        </p>
+                    </span>
+
+                </span>
+
+                <hr>
+
+                <span>
+                    <h6 style="text-align: center"> Friend Suggestions</h6>
+                    <span></span>
+                    <span *ngFor="let friend of friendSuggestions; let u = index">
+                        <span class="dropdown-item" appHighlight [defaultColor]="'white'" [highLightColor]="'#57c0f3'">
+                            <span *ngIf="friend.picFile != null; else dummyPic">
+                                <img class="rounded-circle" style="width: 50px; height: 50px;" [src]="friend.picFile">
+                            </span>
+                            <ng-template #dummyPic>
+                                <img style="width: 20%" src="assets/pics/noProfile.png">
+                            </ng-template>
+
+                            <div class="text-left user-itemC"
+                                style="display: inline-block; margin-left: 10px; width: 100px;">
+                                {{friend.username}}
+                            </div>
+
+                            <span *ngIf="friend.request_status == 2">
+                                <span>Request Sent</span>
+                            </span>
+                            <span *ngIf="friend.request_status != 2">
+                                <input type="button" class="btn btn-primary btn-sm"
+                                    (click)="sendFriendRequest(friend.user_id)" value="Send Request">
+                            </span>
+                        </span>
+                    </span>
+
+                    <span *ngIf="friendSuggestions.length == 0">
+                        <p style="text-align: center"> No Friend Suggestions Found</p>
+                    </span>
+
+                    <p *ngIf="remainingFriendSuggestions > 0" style="text-align: center;">
+                        <a routerLink="/shortcuts/friendsection" style="cursor: pointer"> Load More
+                        </a>
+                    </p>
+
+                </span>
+            </li>
+    </div>
+</div>
+</li>
+</ul>
+</div>
+</div>

@@ -1,0 +1,128 @@
+<button class="btn btn-warning" (click)="changeForm()">{{formButtonTxt}}</button>
+
+<div *ngIf="formType">
+  <h3> SIGNUP </h3>
+  <form [formGroup]="signupForm" (ngSubmit)="reactiveSubmit()">
+    <div id="form-data">
+
+      <div formGroupName="names">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="enter name" value="" name="username"
+            formControlName="username">
+          <span class="help-block"
+            *ngIf="!signupForm.get('names.username')?.valid && signupForm.get('names.username')?.touched">
+
+            <span class="help-block" *ngIf="signupForm.get('names.username')?.errors?.['forbidden']">this name is
+              forbidden</span>
+            <span class="help-block" *ngIf="signupForm.get('names.username')?.errors?.['required']">field required!</span>
+          </span>
+
+        </div>
+
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="enter mid name" value="" name="middlename"
+            formControlName="middlename">
+        </div>
+
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="enter last name" value="" name="lastname"
+            formControlName="lastname">
+          <span class="help-block"
+            *ngIf="!signupForm.get('names.lastname')?.valid && signupForm.get('names.lastname')?.touched">enter a valid
+            last name!</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="enter email" value="" name="email" formControlName="email">
+        <span class="help-block" *ngIf="!signupForm.get('email')?.valid && signupForm.get('email')?.touched">enter a valid
+          email!</span>
+      </div>
+
+      <div class="form-group">
+        <label for="secret">secret question</label>
+        <select name="secret" id="secret" class="form-control" formControlName="secret">
+          <option value="" disabled hidden selected>select option</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+        </select>
+      </div>
+
+      <div class="form-group radio" *ngFor="let gender of genders; let g = index">
+        <label>
+          <input type="radio" formControlName="gender" [value]="gender" name="gender"> {{gender}}
+        </label>
+      </div>
+
+      <div class="form-group">
+        <textarea class="form-control" formControlName="comment" name="comment" rows=3 #comment></textarea>
+        <p>{{comment.value}}</p>
+      </div>
+
+      <div formArrayName="hobbies">
+        <h4>Your Hobbies</h4>
+        <button class="btn btn-info" type="button" (click)="addHobby()">Add Hobby</button>
+        <div class="form-group" *ngFor="let hobbyControl of hobbiesArray.controls; let i = index">
+          <input type="text" class="form-control" [formControlName]="i">
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="submit">submit</button>
+      <button class="btn btn-primary" type="button">reset</button>
+    </div>
+  </form>
+</div>
+
+
+
+<div *ngIf="!formType">
+  <h3> LOGIN FORM </h3>
+  <form (ngSubmit)="onSubmitForVChild()" #formObject="ngForm">
+    <div id="form-data" ngModelGroup="loginForm" #loginForm="ngModelGroup">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="enter name" value="" ngModel
+          name="username" required #username="ngModel">
+        <span class="help-block" *ngIf="!username.valid && username.touched">enter a valid name!</span>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="enter email" value="" ngModel name="email" required email
+          #email="ngModel">
+        <span class="help-block" *ngIf="!email.valid && email.touched">enter a valid email!</span>
+      </div>
+
+      <div class="form-group">
+        <label for="secret">secret question</label>
+        <select name="secret" id="secret" class="form-control" ngModel>
+          <option value="" disabled hidden selected>select option</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+        </select>
+      </div>
+
+      <div class="form-group radio" *ngFor="let gender of genders; let g = index">
+        <label>
+          <input type="radio" [value]="gender" name="gender" ngModel required> {{gender}}
+        </label>
+      </div>
+
+      <div class="form-group">
+        <textarea class="form-control" name="comment" rows=3 ngModel></textarea>
+      </div>
+
+      <button class="btn btn-primary" type="submit" [disabled]="!formObject.valid">submit</button>
+      <button class="btn btn-primary" type="button" (click)="resetForm()">reset</button>
+    </div>
+  </form>
+  <hr>
+
+  <div>
+    <p>
+      your name: {{name}}
+    </p>
+    <p>
+      your email: {{email}}
+    </p>
+  </div>
+</div>

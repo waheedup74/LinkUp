@@ -1,0 +1,95 @@
+<ng-container *ngIf="pdfPages.length > 0">
+  <button type="button" (click)="exportToPDF()" class="btn-pdf">
+    Export PDF
+  </button>
+
+  <div id="pdf-wrapper" class="pdf-wrapper">
+    <!-- First page -->
+    <ng-container *ngIf="pdfSettings?.firstPage">
+      <div class="col-12 pdf-page pdf-bg-img" id="first-pdf-page"
+        [style.background-image]="'url(' + pdfSettings?.firstPage + ')'">
+        <ng-container *ngIf="pdfSettings?.logo">
+          <div style="float: right">
+            <img [src]="pdfSettings?.logo" />
+          </div>
+        </ng-container>
+
+        <div class="isco-wrapper">
+          <p>Job:</p>
+          <p>Country:</p>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="true">
+      <ng-container *ngFor="let pdfSegment of pdfPages; let segmentIndex = index">
+        <div class="row" [id]="'segment'+segmentIndex">
+
+          <ng-container *ngIf="pdfSegment?.sections?.length > 0">
+            <ng-container *ngFor="let section of pdfSegment.sections; let pageIndex = index">
+              <div class="col-12 pdf-page-segment" id="pdf-page{{ segmentIndex }}{{ pageIndex }}">
+                <!-- <p style="float: right">Job: Country:</p> -->
+                <!-- Add the segment titles as PDF page titles from the config -->
+                <h1 style="text-transform: uppercase" [style.color]="pdfSettings?.titleColor">
+                  {{ section?.section_title }}
+
+                  <span *ngIf="pdfSegment.sections.length > 1">
+                    #{{ pageIndex + 1 }}
+                  </span>
+                </h1>
+
+                <!-- Check for page description from the config -->
+                <ng-container *ngIf="section?.section_description">
+                  <small style="color: #ccc;">
+                    {{ section?.section_description }}</small>
+                </ng-container>
+
+                <ng-container *ngIf="section?.chartsData?.length > 0">
+                  <div class="pdf-datapoint-wrapper">
+                    <ng-container *ngFor="let dataPointConfig of section.chartsData; let i = index">
+                      <!-- Can't use the slice pipe for some reason!  max 2 rows here! -->
+                      <ng-container *ngIf="i <= 1 && $any(dataPointConfig)?.datapoints?.length > 0">
+                        <div class="row pdf-row" style="margin-top: .5rem; margin-bottom: .5rem">
+                          <ng-container *ngFor="let datapoint of dataPointConfig?.datapoints">
+                            <div [ngClass]="{
+                            'col-12': dataPointConfig.datapoints.length === 1,
+                            'col-6': dataPointConfig.datapoints.length === 2,
+                            'col-5': dataPointConfig.datapoints.length === 3,
+                            'col-4': dataPointConfig.datapoints.length === 4
+                          }">
+                              <ng-container *ngIf="datapoint?.datapoint_titles">
+                                <h2>{{ datapoint?.datapoint_titles }}</h2>
+                              </ng-container>
+
+                              <datapoint [config]="datapoint.config"></datapoint>
+
+                              <ng-container *ngIf="datapoint?.datapoint_tooltips">
+                                <p style="margin-top: 1rem">
+                                  <small>{{
+                                    datapoint?.datapoint_tooltips
+                                    }}</small>
+                                </p>
+                              </ng-container>
+                            </div>
+                          </ng-container>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                  </div>
+                </ng-container>
+
+                <!-- PDF page footer -->
+                <p class="pdf-copyright">
+                  <span class="ms-1"> © Company {{ currentDate }} </span>
+                </p>
+              </div>
+            </ng-container>
+          </ng-container>
+
+        </div>
+      </ng-container>
+    </ng-container>
+
+
+  </div>
+</ng-container>

@@ -1,0 +1,54 @@
+<!-- Start My Page -->
+<div class="row headerPage">
+  <ul class="nav float-left">
+    <li class="nav-item activeLinks">
+      <a class="nav-link">My Pages</a>
+    </li>
+
+  </ul>
+  <span class="btnSize btn btn-success float-right">
+    <a (click)="onLoadCreatePage('landingpage/create-page')">+ Create</a>
+  </span>
+</div>
+<hr>
+
+    <div class="row">
+      <span *ngFor="let page of myPages" class="card col-sm-6 col-md-6 col-lg-6"
+          style="background: transparent; margin-bottom: 20px; cursor: pointer">
+          <input type="hidden" [value]="page.create_page_id" #pageId>
+        <div *ngIf="page != null || page.length != 0" class="pageColorBg">
+          <!-- <a href="#" routerLink="/shortcuts/page-home" style="background: white;"> -->
+          <a (click)="onPageClick(page)" style="background: white;">
+            <span *ngIf="page.page_picture != null; else pagePicNotFound">
+              <img [src]="page.page_picture" class="card-img-top" style="height: 200px; width: 100%; border: 0.5px solid lightgray;" alt="...">
+            </span>
+            <ng-template #pagePicNotFound>
+              <span>
+                <img src="/assets/pics/a12.png" alt="">
+              </span>
+            </ng-template>
+
+            <div class="card-header text-center">{{ page.page_name }}</div>
+            <p class="card-title text-center">{{ page.page_url}}</p>
+            <div class="card-body">
+              <p class="card-text text-center">{{ page.page_category}}</p>
+            </div>
+          </a>
+        </div>
+      </span>
+     
+    </div>
+
+    <div style="padding-left: 36%;">
+   
+        <span *ngIf=" myPages?.length == 0 || myPages == null">
+        <span *ngIf="myPages != null">
+          <h2>Pages Not Found</h2>
+        </span>
+        <span *ngIf="myPages == null">
+            <h2>Loading ...</h2>
+          </span>
+        </span>
+    
+    </div>
+<!-- End My Page -->

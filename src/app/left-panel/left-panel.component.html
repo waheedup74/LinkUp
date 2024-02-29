@@ -1,0 +1,55 @@
+<aside class="sidebar static left" *ngIf="activeLeftPanel == 0">
+  <div class="widget">
+    <ul class="naves">
+      <li>
+        <i class="fa fa-clipboard"></i>
+        <a title="" [routerLink]="['/landingpage/timeline']" routerLinkActive="router-link-active" class="navbar-brand"
+          style="cursor: pointer;">My Profile</a>
+      </li>
+      <li>
+        <i class="fa fa-envelope"></i>
+        <a title="">Messages</a>
+      </li>
+      <li>
+        <i class="fa fa-gear"></i>
+        <a title="">Settings</a>
+      </li>
+      <li>
+        <i class="fa fa-image"></i>
+        <a title="">Albums</a>
+      </li>
+      <li>
+        <i class="fa fa-save"></i>
+        <a title="">Saved Posts</a>
+      </li>
+      <li>
+        <i class="fa fa-users"></i>
+        <a title="" [routerLink]="['/landingpage/groups/1']" [queryParams]="{limit: 5}" style="cursor: pointer;">My
+          Groups</a>
+      </li>
+      <li>
+        <i class="fa fa-file"></i>
+        <a class="navbar-brand active" (click)="setNextRoute('/shortcuts/mypage')" style="cursor: pointer;">
+          My pages</a>
+      </li>
+      <li>
+        <i class="fa fa-rss-square"></i>
+        <a title="">Blog</a>
+      </li>
+      <li>
+        <i class="fa fa-adn"></i>
+        <a title="">My Articles</a>
+      </li>
+    </ul>
+  </div>
+</aside>
+
+<div class="col-sm-12 col-lg-12 hideMeLeftPanel" *ngIf="activeLeftPanel == 1">
+  <div class="widget whitePanelBox" style="padding: 0 4px 0;">
+    <h4 class="widget-title">Intro</h4>
+    <div class="your-page">
+      <p>MEAN Stack Engineer</p>
+      <p>Senior</p>
+    </div>
+  </div>
+</div>

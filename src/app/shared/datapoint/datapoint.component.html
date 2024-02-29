@@ -1,0 +1,5 @@
+<div class="d-block" *ngIf="sampleData.length > 0">
+    <smart-chart #chart [caption]="caption" [showLegend]="showLegend" [padding]="padding" [description]="''"
+        [dataSource]="sampleData" [xAxis]="xAxis" [colorScheme]="colorScheme"
+        [seriesGroups]="seriesGroups"></smart-chart>
+</div>

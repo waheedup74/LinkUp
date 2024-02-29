@@ -1,0 +1,30 @@
+
+  <div class="theme-layout">
+
+    <section>
+      <div class="gap2 gray-bg">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="row merged20" id="page-contents" style="margin-top: 50px">
+
+                <app-left-panel class="col-sm-4 col-lg-4" [activeLeftPanel]="rightPanelNo"  style="position: fixed; left: -3%; margin-top: 4%;"></app-left-panel>
+
+                <div
+                  class="col-sm-6 col-lg-6 expandMiddleContent setMiddleContentToRight setMidleContentMaxWidth setMidleContentMinWidth"
+                  style="margin: 1% auto">
+                  <router-outlet></router-outlet>
+                </div>
+
+                <div class="col-sm-4 col-lg-4 hideMeRightPanel" style="position: fixed; right: -3%; margin-top: 4%;">
+                  <app-right-panel></app-right-panel>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+  </div>
